@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supreme Court Appeal: My Lord ⚖️</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background: #192a56;
+            color: #f5f6fa;
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            overflow: hidden;
+        }
+        .court-box {
+            background: #273c75;
+            border: 3px solid #fbc531;
+            border-radius: 15px;
+            padding: 25px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.6);
+        }
+        .stamp {
+            border: 2px solid #ff4757;
+            color: #ff4757;
+            background: rgba(255, 71, 87, 0.1);
+            font-weight: bold;
+            padding: 4px 10px;
+            display: inline-block;
+            transform: rotate(-3deg);
+            font-size: 12px;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #fbc531;
+            margin: 10px 0;
+            font-size: 21px;
+        }
+        p {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #f1f2f6;
+        }
+        .btn {
+            background: #fbc531;
+            color: #192a56;
+            border: none;
+            padding: 12px 18px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 8px 5px;
+            font-family: 'Segoe UI', sans-serif;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .btn-red {
+            background: #ff4757;
+            color: white;
+            z-index: 9999;
+            transition: left 0.15s ease, top 0.15s ease;
+        }
+        .step {
+            display: none;
+            animation: fadeIn 0.4s;
+        }
+        .active {
+            display: block;
+        }
+        .progress {
+            font-size: 12px;
+            color: #a4b0be;
+            margin-bottom: 10px;
+            font-family: sans-serif;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="court-box">
+    <div class="stamp">CONTEMPT OF COURT • BIRYANI SCAM</div>
+    <div class="progress" id="progressText">Appeal Hearing: 1 / 6</div>
+
+    <!-- STEP 1 -->
+    <div class="step active" id="step1">
+        <h2>🚨 Objection, Me Lord!</h2>
+        <p>Court ke notice mein aaya hai ki kal aapne <b>Sirf Ek Plate Biryani</b> khila kar apni 4 November wali birthday party niptane ki koshish ki hai! 🍲</p>
+        <p>Kya ek vakeel ko itni sasti settlement shobha deti hai?</p>
+        <button class="btn" onclick="nextStep(2)">Sunwai Shuru Ki Jaye 🔨</button>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step" id="step2">
+        <h2>🕵️‍♂️ Saboot: "Biryani Rishwat (Bribe)"</h2>
+        <p>Kanoon ki nazar mein: <b>Biryani = Sirf Starter!</b><br>Isse Birthday Party nahi kaha ja sakta.</p>
+        <p>25 saal ki umra (4 Nov 2001) ke hisaab se kam se kam <b>Pizza + Cold Drink + Dessert</b> banta hai. Maanti hain na?</p>
+        <button class="btn" onclick="nextStep(3)">Haan, Meri Galti Hai 😅 (Party Baaki Hai)</button>
+        <br>
+        <button class="btn btn-red" id="biryaniBtn" onmouseover="jumpAcrossScreen('biryaniBtn', 6)" onclick="jumpAcrossScreen('biryaniBtn', 6)">Nahi, Biryani Hi Kaafi Thi 😤</button>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step" id="step3">
+        <h2>⚖️ Vakeel Sahiba Ka Bahaana</h2>
+        <p>Aapne kal biryani khila kar socha ki case close ho jayega. Aapke dimaag mein kya chal raha tha, Me Lord?</p>
+        <button class="btn" onclick="setExcuse('Socha tha biryani ke nashe mein yeh party bhool jayega')">1. Biryani khila kar behka dungi 🍗</button>
+        <button class="btn" onclick="setExcuse('Mere paas clients ke paise hain, party ke nahi')">2. Chhote bhai/dost ko thag lungi 💸</button>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="step" id="step4">
+        <h2>📜 Court Ka Faisla (Section 420)</h2>
+        <p id="excuseText" style="color: #fbc531; font-weight: bold;"></p>
+        <p>Me Lord, aapki yeh chalaki pakdi gayi hai! Biryani bohot mast thi, uske liye 10/10 marks... <b>PAR</b> birthday party ka bill abhi bhi pending hai! 🧾😂</p>
+        <button class="btn" onclick="nextStep(5)">Chalo Ab Agli Shart Dekho 👉</button>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="step" id="step5">
+        <h2>🎁 Gift vs. Asli Party</h2>
+        <p>Ab faisla aapke haath mein hai, Me Lord. Kaunsa order pass karengi?</p>
+        <button class="btn btn-red" id="escapeBtn" onmouseover="jumpAcrossScreen('escapeBtn', 7)" onclick="jumpAcrossScreen('escapeBtn', 7)">Case Dismissed (No More Party) ❌</button>
+        <br>
+        <button class="btn" style="background:#2ed573; color:#192a56;" onclick="nextStep(6)">Jaldi Hi Ek Aur Zabardast Treat Dungi 🍕🍦</button>
+    </div>
+
+    <!-- STEP 6 -->
+    <div class="step" id="step6">
+        <h2>❤️ Dil Se Shukriya, Me Lord!</h2>
+        <p style="text-align: left; background: #192a56; padding: 15px; border-radius: 10px; border-left: 4px solid #fbc531;">
+            <b>Pyaari Didi / Me Lord,</b><br><br>
+            kal ki biryani ke liye dil se thank you! Sach toh yeh hai ki aapke saath baith kar khana aur hasna hi sabse badi party hai. 🍲✨<br><br>
+             aap jaisi badi behen aur mentor milna meri khushkismati hai. Hamesha khush rahiye!<br><br>
+            <b>(Par haan, dessert aur coffee abhi bhi udhaar hai! 😎☕)</b>
+        </p>
+    </div>
+</div>
+
+<script>
+    let counts = { biryaniBtn: 0, escapeBtn: 0 };
+
+    const funnyLabels = [
+        "Pakad ke dikhao Me Lord! 😜",
+        "Itni slow speed? 👵😂",
+        "Yahan nahi, idhar hoon! 🏃‍♂️💨",
+        "Kanoon ke haath lambe hain, par itne nahi! 🤣",
+        "Aaj toh pakka treat deni padegi! 🍕",
+        "Haar maan lo Advocate Sahiba! 🏳️"
+    ];
+
+    function nextStep(num) {
+        document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+        document.getElementById('step' + num).classList.add('active');
+        document.getElementById('progressText').innerText = `Appeal Hearing: ${num} / 6`;
+    }
+
+    function jumpAcrossScreen(btnId, maxJumps) {
+        const btn = document.getElementById(btnId);
+        if (counts[btnId] < maxJumps) {
+            btn.style.position = 'fixed';
+            const maxX = window.innerWidth - btn.offsetWidth - 20;
+            const maxY = window.innerHeight - btn.offsetHeight - 20;
+            
+            const randomX = Math.max(10, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(10, Math.floor(Math.random() * maxY));
+
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
+            btn.innerText = funnyLabels[counts[btnId] % funnyLabels.length];
+            counts[btnId]++;
+        } else {
+            btn.style.display = 'none';
+            alert("Yeh button bhaag kar Court se bahar chala gaya! Ab doosra button dabayein 😂");
+        }
+    }
+
+    function setExcuse(text) {
+        document.getElementById('excuseText').innerText = `My Lord ne qubool kiya: "${text}"!`;
+        nextStep(4);
+    }
+</script>
+
+</body>
+</html>
