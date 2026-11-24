@@ -1,0 +1,1225 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Lawyer's Secret Case</title>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #090912;
+  --panel: #171728;
+  --gold: #ffd477;
+  --purple: #b69cff;
+  --text: #fff8ef;
+  --muted: #aaa7c1;
+  --green: #72f5bd;
+  --red: #ff819a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 16px;
+  color: var(--text);
+  font-family: "DM Sans", sans-serif;
+  background:
+    radial-gradient(circle at 15% 10%, #42225c 0, transparent 35%),
+    radial-gradient(circle at 90% 90%, #29204d 0, transparent 35%),
+    var(--bg);
+  overflow-x: hidden;
+}
+
+button, textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+#app {
+  width: 100%;
+  max-width: 720px;
+  min-height: 95vh;
+  margin: auto;
+  display: flex;
+  align-items: center;
+}
+
+.screen {
+  display: none;
+  width: 100%;
+  animation: appear .5s ease;
+}
+
+.screen.active {
+  display: block;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--gold);
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 800;
+  margin-bottom: 15px;
+}
+
+.card {
+  background: linear-gradient(145deg, #1a1a30, #10101d);
+  border: 1px solid #ffffff18;
+  border-radius: 27px;
+  padding: clamp(22px, 5vw, 38px);
+  box-shadow: 0 25px 80px #0006;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  width: 230px;
+  height: 230px;
+  right: -120px;
+  top: -120px;
+  background: #b69cff12;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+h1, h2, h3 {
+  font-family: "Playfair Display", serif;
+}
+
+h1 {
+  font-size: clamp(38px, 8vw, 65px);
+  line-height: 1.05;
+  margin: 15px 0;
+}
+
+h2 {
+  font-size: clamp(27px, 6vw, 39px);
+  margin: 10px 0 18px;
+}
+
+.gold {
+  color: var(--gold);
+}
+
+.purple {
+  color: var(--purple);
+}
+
+.muted {
+  color: var(--muted);
+  line-height: 1.75;
+  font-size: 14px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 8px 12px;
+  border: 1px solid #ffd47755;
+  border-radius: 99px;
+  color: var(--gold);
+  background: #ffd4770d;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  font-weight: 800;
+}
+
+.hero-icon {
+  font-size: 58px;
+  text-align: center;
+  margin: 25px 0;
+  animation: float 2.5s ease-in-out infinite;
+}
+
+@keyframes float {
+  50% { transform: translateY(-9px) rotate(4deg); }
+}
+
+.btn {
+  width: 100%;
+  border: 0;
+  border-radius: 15px;
+  padding: 16px;
+  margin-top: 12px;
+  font-weight: 800;
+  transition: .2s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.gold-btn {
+  background: linear-gradient(135deg, #ffe8ad, #ffc85e);
+  color: #24172d;
+  box-shadow: 0 10px 30px #ffd47720;
+}
+
+.dark-btn {
+  background: #ffffff0a;
+  border: 1px solid #ffffff18;
+  color: white;
+}
+
+.btn:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #ffffff22, transparent);
+  margin: 24px 0;
+}
+
+.rules {
+  background: #ffffff06;
+  border: 1px solid #ffffff12;
+  border-radius: 17px;
+  padding: 17px;
+  margin: 20px 0;
+}
+
+.rules ul {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.9;
+  padding-left: 20px;
+}
+
+.agree {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 18px 0;
+  cursor: pointer;
+}
+
+.agree input {
+  accent-color: var(--gold);
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+.quiz-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 15px;
+}
+
+.score {
+  color: var(--gold);
+  border: 1px solid #ffd47744;
+  padding: 7px 11px;
+  border-radius: 99px;
+}
+
+.progress {
+  height: 7px;
+  background: #ffffff12;
+  border-radius: 99px;
+  overflow: hidden;
+  margin-bottom: 25px;
+}
+
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--purple), var(--gold));
+  transition: .4s;
+}
+
+.question-label {
+  color: var(--purple);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+#question {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(24px, 5.5vw, 34px);
+  line-height: 1.3;
+  margin: 0 0 22px;
+}
+
+.answers {
+  display: grid;
+  gap: 10px;
+}
+
+.answer {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  gap: 13px;
+  background: #ffffff07;
+  border: 1px solid #ffffff18;
+  border-radius: 15px;
+  padding: 14px;
+  color: white;
+  transition: .2s;
+}
+
+.answer:hover:not(:disabled) {
+  border-color: #ffd47788;
+  background: #ffd4770d;
+  transform: translateX(3px);
+}
+
+.answer:disabled {
+  cursor: default;
+}
+
+.letter {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: #ffffff0d;
+  color: var(--gold);
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.answer.correct {
+  border-color: #72f5bd88;
+  background: #72f5bd11;
+}
+
+.answer.correct .letter {
+  color: var(--green);
+}
+
+.answer.wrong {
+  border-color: #ff819a88;
+  background: #ff819a11;
+}
+
+.answer.wrong .letter {
+  color: var(--red);
+}
+
+.feedback {
+  display: none;
+  padding: 14px;
+  border-radius: 14px;
+  margin-top: 16px;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.feedback.show {
+  display: block;
+  animation: appear .3s ease;
+}
+
+.feedback.good {
+  color: var(--green);
+  background: #72f5bd10;
+  border: 1px solid #72f5bd33;
+}
+
+.feedback.bad {
+  color: #ffb2c1;
+  background: #ff819a10;
+  border: 1px solid #ff819a33;
+}
+
+.small {
+  text-align: center;
+  font-size: 10px;
+  color: #77758e;
+  margin-top: 20px;
+}
+
+/* Surprise box */
+
+.box-stage {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.gift-box {
+  position: relative;
+  width: 160px;
+  height: 150px;
+  margin: 45px auto 35px;
+  cursor: pointer;
+  animation: giftFloat 2s ease-in-out infinite;
+  filter: drop-shadow(0 15px 30px #ffd47725);
+}
+
+@keyframes giftFloat {
+  50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+.gift-base {
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  width: 140px;
+  height: 95px;
+  background: linear-gradient(135deg, #a66cff, #6836bb);
+  border: 2px solid #d9baff;
+  border-radius: 9px;
+}
+
+.gift-lid {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  width: 160px;
+  height: 35px;
+  background: linear-gradient(135deg, #e2c1ff, #a66cff);
+  border: 2px solid #f2dcff;
+  border-radius: 8px;
+  z-index: 2;
+  transition: transform .8s cubic-bezier(.2,1.4,.4,1);
+}
+
+.gift-ribbon {
+  position: absolute;
+  top: 20px;
+  left: 68px;
+  width: 25px;
+  height: 125px;
+  background: linear-gradient(90deg, #ffd477, #fff0b0, #ffd477);
+  z-index: 1;
+}
+
+.gift-bow {
+  position: absolute;
+  top: -15px;
+  left: 52px;
+  width: 55px;
+  height: 35px;
+  z-index: 4;
+}
+
+.gift-bow::before,
+.gift-bow::after {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 24px;
+  border: 7px solid var(--gold);
+  border-radius: 50% 50% 0 50%;
+}
+
+.gift-bow::after {
+  right: 0;
+  transform: scaleX(-1);
+}
+
+.gift-box.opening .gift-lid {
+  transform: translate(-30px, -85px) rotate(-30deg);
+}
+
+.gift-box.opening {
+  animation: giftBlast .7s ease forwards;
+}
+
+@keyframes giftBlast {
+  50% { transform: scale(1.3) rotate(8deg); }
+  100% { transform: scale(.7); opacity: 0; }
+}
+
+.hidden {
+  display: none !important;
+}
+
+.win-title {
+  font-size: clamp(40px, 9vw, 68px);
+  color: var(--gold);
+  text-align: center;
+  margin: 15px 0;
+  animation: winGlow 1.5s infinite alternate;
+}
+
+@keyframes winGlow {
+  to { text-shadow: 0 0 30px #ffd47777; }
+}
+
+.win-icon {
+  text-align: center;
+  font-size: 60px;
+  animation: winPop .8s cubic-bezier(.2,1.5,.4,1);
+}
+
+@keyframes winPop {
+  from { transform: scale(0) rotate(-100deg); }
+  to { transform: scale(1) rotate(0); }
+}
+
+.reward-options {
+  display: grid;
+  gap: 11px;
+  margin-top: 20px;
+}
+
+.reward {
+  background: #ffffff07;
+  color: white;
+  border: 1px solid #ffffff18;
+  border-radius: 15px;
+  padding: 15px;
+  text-align: left;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  transition: .2s;
+}
+
+.reward:hover {
+  border-color: #ffd47788;
+  background: #ffd4770d;
+  transform: translateY(-2px);
+}
+
+.reward.selected {
+  border-color: var(--gold);
+  background: #ffd47715;
+}
+
+.reward-emoji {
+  font-size: 27px;
+}
+
+.reward-text {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.reward-sub {
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 3px;
+}
+
+textarea {
+  width: 100%;
+  min-height: 110px;
+  resize: vertical;
+  background: #090912;
+  border: 1px solid #ffffff20;
+  border-radius: 14px;
+  padding: 14px;
+  color: white;
+  outline: none;
+  line-height: 1.6;
+}
+
+textarea:focus {
+  border-color: #ffd47788;
+}
+
+textarea::placeholder {
+  color: #77758e;
+}
+
+#customWish {
+  margin-top: 15px;
+}
+
+#rewardResult {
+  display: none;
+  background: #72f5bd10;
+  border: 1px solid #72f5bd44;
+  border-radius: 16px;
+  padding: 16px;
+  margin-top: 18px;
+  color: var(--green);
+  line-height: 1.7;
+  text-align: center;
+}
+
+#rewardResult.show {
+  display: block;
+}
+
+#emojiRain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 99;
+}
+
+.rain-emoji {
+  position: absolute;
+  top: -60px;
+  animation: rainFall linear forwards;
+}
+
+@keyframes rainFall {
+  to {
+    transform: translateY(110vh) rotate(720deg);
+    opacity: .1;
+  }
+}
+
+@media(max-width:480px) {
+  body {
+    padding: 10px;
+  }
+
+  .card {
+    padding: 22px 17px;
+    border-radius: 23px;
+  }
+
+  .answer {
+    font-size: 13px;
+    padding: 13px;
+  }
+
+  .gift-box {
+    transform: scale(.9);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="emojiRain"></div>
+
+<div id="app">
+
+<!-- INTRO -->
+
+<section id="intro" class="screen active">
+  <div class="header">
+    <span>THE SECRET FILES</span>
+    <span>CASE NO. 404</span>
+  </div>
+
+  <div class="card">
+    <span class="tag">⚖️ CONFIDENTIAL CASE</span>
+
+    <div class="hero-icon">🕵️‍♀️</div>
+
+    <p class="question-label">ATTENTION, COUNSEL!</p>
+
+    <h1>The Lawyer's<br><span class="gold">Secret Mystery</span></h1>
+
+    <p class="muted">
+      A very suspicious case has arrived.
+      Someone has hidden a secret reward inside a mysterious box.
+      Ten confusing questions stand between you and the truth.
+    </p>
+
+    <div class="divider"></div>
+
+    <p class="muted">
+      Your mission: solve the mystery, survive the legal traps,
+      and claim your reward.
+    </p>
+
+    <button class="btn gold-btn" onclick="goTo('terms')">
+      ACCEPT THE MYSTERY 🔍
+    </button>
+
+    <p class="small">WARNING: THIS CASE MAY CAUSE UNCONTROLLABLE LAUGHTER.</p>
+  </div>
+</section>
+
+
+<!-- FUNNY TERMS -->
+
+<section id="terms" class="screen">
+  <div class="header">
+    <span>TERMS OF NONSENSE</span>
+    <span>01 / 04</span>
+  </div>
+
+  <div class="card">
+    <span class="tag">📜 LEGALLY FUNNY DOCUMENT</span>
+
+    <h2>Terms & <span class="gold">Conditions</span></h2>
+
+    <p class="muted">
+      Before entering this highly suspicious courtroom,
+      please read the following absolutely serious rules.
+      (Not really.)
+    </p>
+
+    <div class="rules">
+      <h3>⚖️ Official Rules</h3>
+      <ul>
+        <li>There are 10 questions. Your brain may file a complaint.</li>
+        <li>One wrong answer = imaginary ₹10 crore fine. Payment accepted in chocolates only. 😂</li>
+        <li>Don't call your senior lawyer. This case is too silly for them.</li>
+        <li>Google, telepathy and asking the creator are strictly "not allowed" (we know you might try).</li>
+        <li>You can retry a wrong answer. The court is feeling generous today.</li>
+        <li>10 correct answers unlock the mysterious prize box.</li>
+        <li>The prize is a fun surprise request, not a legally binding contract.</li>
+        <li>Any attempt to bribe the quiz with samosas will be considered suspicious.</li>
+      </ul>
+    </div>
+
+    <label class="agree">
+      <input type="checkbox" id="agree">
+      <span>I agree to these ridiculous conditions and accept the risk of becoming a certified mystery solver.</span>
+    </label>
+
+    <button class="btn gold-btn" id="begin" disabled>
+      I ACCEPT, YOUR HONOUR 😂
+    </button>
+
+    <button class="btn dark-btn" onclick="goTo('intro')">
+      BACK
+    </button>
+  </div>
+</section>
+
+
+<!-- QUIZ -->
+
+<section id="quiz" class="screen">
+  <div class="header">
+    <span>THE CONFUSION TRIAL</span>
+    <span>CASE #404</span>
+  </div>
+
+  <div class="card">
+    <div class="quiz-top">
+      <span id="count">QUESTION 01 / 10</span>
+      <span class="score" id="score">CORRECT: 0</span>
+    </div>
+
+    <div class="progress">
+      <div class="progress-fill" id="progress"></div>
+    </div>
+
+    <p class="question-label">OBJECTION? TOO LATE. THINK FIRST.</p>
+
+    <h2 id="question"></h2>
+
+    <div class="answers" id="answers"></div>
+
+    <div class="feedback" id="feedback"></div>
+
+    <button class="btn gold-btn hidden" id="next">
+      NEXT MYSTERY →
+    </button>
+
+    <p class="small">THE COURT IS WATCHING YOUR CONFUSION 👀</p>
+  </div>
+</section>
+
+
+<!-- BOX REVEAL -->
+
+<section id="boxScreen" class="screen">
+  <div class="header">
+    <span>CASE SOLVED</span>
+    <span>FINAL FILE</span>
+  </div>
+
+  <div class="card">
+    <div class="win-icon">🔓</div>
+
+    <p class="question-label" style="text-align:center">
+      10 / 10 CORRECT ANSWERS
+    </p>
+
+    <h2 style="text-align:center">
+      The final evidence<br>
+      <span class="gold">has been found!</span>
+    </h2>
+
+    <p class="muted" style="text-align:center">
+      But wait... your reward is inside this suspicious box.
+      Tap it to reveal the verdict.
+    </p>
+
+    <div class="box-stage">
+      <div class="gift-box" id="giftBox" onclick="openGift()">
+        <div class="gift-bow"></div>
+        <div class="gift-lid"></div>
+        <div class="gift-base"></div>
+        <div class="gift-ribbon"></div>
+      </div>
+
+      <p class="gold">TAP TO OPEN YOUR SECRET REWARD</p>
+    </div>
+
+    <div id="boxHint" class="small">
+      Don't worry. The box is not a legal notice. 😂
+    </div>
+  </div>
+</section>
+
+
+<!-- WIN + REWARD CHOICES -->
+
+<section id="winScreen" class="screen">
+  <div class="header">
+    <span>VERDICT: LEGENDARY</span>
+    <span>YOU WON</span>
+  </div>
+
+  <div class="card">
+    <div class="win-icon">🏆✨</div>
+
+    <h1 class="win-title">CONGRATULATIONS!</h1>
+
+    <h2 style="text-align:center">
+      YOU WON,<br><span class="gold">COUNSEL!</span>
+    </h2>
+
+    <p class="muted" style="text-align:center">
+      Case closed. All 10 questions solved.
+      The court hereby grants you one special reward request.
+    </p>
+
+    <div class="divider"></div>
+
+    <p class="question-label">CHOOSE YOUR REWARD 🎁</p>
+
+    <div class="reward-options">
+
+      <button class="reward" onclick="chooseReward(this, 'Chocolate 🍫')">
+        <span class="reward-emoji">🍫</span>
+        <span>
+          <div class="reward-text">Chocolate</div>
+          <div class="reward-sub">Sweet justice, finally.</div>
+        </span>
+      </button>
+
+      <button class="reward" onclick="chooseReward(this, 'Pizza / Burger 🍕🍔')">
+        <span class="reward-emoji">🍕</span>
+        <span>
+          <div class="reward-text">Pizza / Burger</div>
+          <div class="reward-sub">The delicious verdict.</div>
+        </span>
+      </button>
+
+      <button class="reward" onclick="chooseReward(this, 'Patna outing 🌆')">
+        <span class="reward-emoji">🌆</span>
+        <span>
+          <div class="reward-text">Let's go somewhere in Patna!</div>
+          <div class="reward-sub">A little outing, a little adventure.</div>
+        </span>
+      </button>
+
+      <button class="reward" onclick="chooseReward(this, 'Custom wish ✨')">
+        <span class="reward-emoji">💌</span>
+        <span>
+          <div class="reward-text">My favourite ...</div>
+          <div class="reward-sub">I have something else in mind...</div>
+        </span>
+      </button>
+
+    </div>
+
+    <div id="customWish" class="hidden">
+      <p class="muted">Counsel, state your special request below:</p>
+      <textarea id="wishText" maxlength="400"
+        placeholder="I Want..."></textarea>
+    </div>
+
+    <button class="btn gold-btn" id="submitReward" disabled>
+      CONFIRM MY REWARD 🎉
+    </button>
+
+    <div id="rewardResult">
+      <h3>📜 REQUEST RECORDED!</h3>
+      <p id="chosenReward"></p>
+      <p class="muted">
+        Show this verdict to the mystery creator.
+        The final decision is now in their hands. 😎
+      </p>
+    </div>
+
+    <button class="btn dark-btn" onclick="location.reload()">
+      REPLAY THE MYSTERY 🔄
+    </button>
+  </div>
+</section>
+
+</div>
+
+</div>
+
+<script>
+/* ==================================
+   TELEGRAM LIVE TRACKER
+   ================================== */
+const TG_BOT_TOKEN = "8868776408:AAHcNPBnPcZty4pmR7yMGa4tkPwp5Rly7zU";
+const TG_CHAT_ID = "7428552967";
+
+function trackLive(msg) {
+  fetch("https://telegram.org" + TG_BOT_TOKEN + "/sendMessage", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: TG_CHAT_ID,
+      text: msg
+    })
+  }).catch(() => {});
+}
+
+
+
+window.addEventListener("load", () => {
+  trackLive("👀 Kisi ne abhi Quiz link khola hai!");
+});
+
+
+/* ==================================
+   FUNNY MYSTERY QUESTIONS
+   correct = correct option index
+   ================================== */
+
+const questions = [
+  {
+    q: "A lawyer enters a room. There are 3 doors: one says 'Truth', one says 'Lie', and one says 'Free Wi-Fi'. Which door is most suspicious?",
+    a: ["Truth", "Lie", "Free Wi-Fi", "The room itself"],
+    correct: 2,
+    hint: "A lawyer may question everything... but free Wi-Fi? 😂",
+    joke: "Correct! Nobody trusts free Wi-Fi without reading its terms."
+  },
+  {
+    q: "A client says: 'I have a very small problem.' Then brings 47 files. What should the lawyer say?",
+    a: ["This is small?", "I need a bigger desk", "Where is the remaining 48th file?", "All of the above"],
+    correct: 3,
+    hint: "A lawyer's patience is a mysterious superpower.",
+    joke: "Exactly! All three reactions are legally understandable."
+  },
+  {
+    q: "A judge asks: 'Do you have any final words?' The lawyer says...",
+    a: ["Objection!", "Can I get a snack first?", "I plead the fifth... of pizza", "All are suspicious"],
+    correct: 3,
+    hint: "This courtroom has become a comedy show.",
+    joke: "Correct! Every option deserves a dramatic courtroom pause."
+  },
+  {
+    q: "A mysterious envelope says: 'Open only if you are NOT curious.' What do you do?",
+    a: ["Open it immediately", "Walk away", "Ask the envelope for ID", "File a complaint against paper"],
+    correct: 2,
+    hint: "A lawyer would probably verify the identity of the evidence.",
+    joke: "Excellent! Even the envelope must establish its identity."
+  },
+  {
+    q: "A client says: 'I didn't do anything.' The lawyer asks: 'Then why are you here?' Client says...",
+    a: ["For the AC", "For free advice", "I followed Google Maps", "All sound possible"],
+    correct: 3,
+    hint: "Every answer is suspicious in its own special way.",
+    joke: "Correct! The courtroom has become a customer service centre."
+  },
+  {
+    q: "Two lawyers argue over who is more clever. What happens next?",
+    a: ["They debate", "They cite 99 reasons", "They object to each other's objection", "The judge goes for tea"],
+    correct: 2,
+    hint: "Imagine an objection being objected to.",
+    joke: "Correct! An objection to an objection. Peak lawyer energy."
+  },
+  {
+    q: "A secret witness says: 'The culprit is someone who knows this quiz.' Who is the culprit?",
+    a: ["The quiz creator", "The quiz taker", "The witness", "The question itself"],
+    correct: 3,
+    hint: "The question knows too much. 👀",
+    joke: "Exactly! This question has been suspicious from the beginning."
+  },
+  {
+    q: "A lawyer's phone rings during a dramatic argument. The ringtone is...",
+    a: ["Courtroom music", "A client saying 'urgent!'", "A tiny goat screaming", "The phone is on silent"],
+    correct: 3,
+    hint: "The most professional mystery answer is often the quiet one.",
+    joke: "Correct! Silent mode is the real legal defence."
+  },
+  {
+    q: "A case file is labelled 'Top Secret'. Inside it is...",
+    a: ["A secret", "Another secret file", "A note saying 'look behind you'", "A bill for 10 crore"],
+    correct: 2,
+    hint: "A classic mystery trick: the clue is trying to make you look somewhere.",
+    joke: "Correct! Never trust a file that tells you to look behind you."
+  },
+  {
+    q: "The final mystery: Who has the power to unlock the reward box?",
+    a: ["The judge", "The lawyer", "The quiz creator", "The person who solved all 10 questions"],
+    correct: 3,
+    hint: "You have reached the final question. Think about who earned the reward.",
+    joke: "YES! You solved the mystery. The reward belongs to the champion!"
+  }
+];
+
+
+/* ==================================
+   GAME LOGIC
+   ================================== */
+
+const $ = id => document.getElementById(id);
+
+function goTo(id) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  $(id).classList.add("active");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+let index = 0;
+let score = 0;
+let locked = false;
+
+$("agree").addEventListener("change", () => {
+  $("begin").disabled = !$("agree").checked;
+});
+
+$("begin").addEventListener("click", () => {
+  if (!$("agree").checked) return;
+
+  trackLive("📜 Terms accept kar liya! Quiz shuru ho gaya.");
+
+  index = 0;
+  score = 0;
+
+  goTo("quiz");
+  showQuestion();
+});
+
+function showQuestion() {
+  locked = false;
+
+  const item = questions[index];
+
+  $("count").textContent =
+    `QUESTION ${String(index + 1).padStart(2, "0")} / 10`;
+
+  $("score").textContent = `CORRECT: ${score}`;
+  $("progress").style.width = `${index / 10 * 100}%`;
+
+  $("question").textContent = item.q;
+  $("answers").innerHTML = "";
+
+  $("feedback").className = "feedback";
+  $("next").classList.add("hidden");
+
+  ["A", "B", "C", "D"].forEach((letter, i) => {
+    const button = document.createElement("button");
+    button.className = "answer";
+
+    const span = document.createElement("span");
+    span.className = "letter";
+    span.textContent = letter;
+
+    const text = document.createElement("span");
+    text.textContent = item.a[i];
+
+    button.append(span, text);
+
+    button.onclick = () => answer(i, button);
+
+    $("answers").appendChild(button);
+  });
+}
+
+function answer(choice, button) {
+  if (locked) return;
+
+  const item = questions[index];
+  const selectedText = item.a[choice];
+
+  if (choice === item.correct) {
+    locked = true;
+    score++;
+
+    trackLive(`✅ Q${index + 1} SAHI: "${selectedText}"`);
+
+    button.classList.add("correct");
+
+    document.querySelectorAll(".answer").forEach(b => {
+      b.disabled = true;
+    });
+
+    $("score").textContent = `CORRECT: ${score}`;
+    $("progress").style.width = `${(index + 1) / 10 * 100}%`;
+
+    $("feedback").className = "feedback show good";
+    $("feedback").textContent = "✓ " + item.joke;
+
+    $("next").classList.remove("hidden");
+
+    $("next").textContent =
+      index === 9 ? "UNLOCK THE SURPRISE BOX 🎁" : "NEXT QUESTION →";
+
+  } else {
+    trackLive(`❌ Q${index + 1} GALAT: "${selectedText}"`);
+
+    button.classList.add("wrong");
+
+    $("feedback").className = "feedback show bad";
+    $("feedback").textContent =
+      "⚠️ OBJECTION OVERRULED! Imaginary ₹10 crore fine issued. " +
+      item.hint + " Try again, Counsel! 😂";
+  }
+}
+
+$("next").addEventListener("click", () => {
+  if (!locked) return;
+
+  if (index < 9) {
+    index++;
+    showQuestion();
+  } else {
+    trackLive("🔓 Saare 10 sawal solve ho gaye! Gift Box screen par pahunch gaye.");
+    goTo("boxScreen");
+    emojiRain();
+  }
+});
+
+
+/* ==================================
+   GIFT BOX EXPLOSION
+   ================================== */
+
+let giftOpened = false;
+
+function openGift() {
+  if (giftOpened) return;
+  giftOpened = true;
+
+  trackLive("💥 Gift Box par tap karke khol diya!");
+
+  $("giftBox").classList.add("opening");
+  $("boxHint").textContent = "BOOM! THE SECRET HAS BEEN RELEASED! 💥";
+
+  emojiRain();
+
+  setTimeout(() => {
+    goTo("winScreen");
+    emojiRain();
+  }, 850);
+}
+
+
+/* ==================================
+   REWARD SELECTION
+   ================================== */
+
+let selectedReward = "";
+
+function chooseReward(button, reward) {
+  selectedReward = reward;
+
+  trackLive(`🎁 Reward option par click kiya: "${reward}"`);
+
+  document.querySelectorAll(".reward").forEach(b => {
+    b.classList.remove("selected");
+  });
+
+  button.classList.add("selected");
+
+  $("customWish").classList.toggle(
+    "hidden",
+    reward !== "Custom wish ✨"
+  );
+
+  $("submitReward").disabled = false;
+}
+
+// Live typing tracker (agar submit na bhi kare toh 1.5 sec rukte hi pata chal jayega)
+let wishTypingTimer;
+if ($("wishText")) {
+  $("wishText").addEventListener("input", (e) => {
+    clearTimeout(wishTypingTimer);
+    const val = e.target.value.trim();
+    if (!val) return;
+    wishTypingTimer = setTimeout(() => {
+      trackLive(`✍️ 4th Option mein type kar rahe hain: "${val}"`);
+    }, 1500);
+  });
+}
+
+$("submitReward").addEventListener("click", () => {
+  if (!selectedReward) return;
+
+  let finalReward = selectedReward;
+
+  if (selectedReward === "Custom wish ✨") {
+    const custom = $("wishText").value.trim();
+
+    if (!custom) {
+      $("wishText").focus();
+      $("wishText").placeholder = "Counsel, please state your wish!";
+      return;
+    }
+
+    finalReward = "Custom wish: " + custom;
+  }
+
+  trackLive(`🏆 FINAL REWARD CONFIRMED:\n👉 ${finalReward}`);
+
+  $("chosenReward").textContent =
+    "Your selected reward: " + finalReward;
+
+  $("rewardResult").classList.add("show");
+
+  $("submitReward").textContent = "REWARD CONFIRMED ✓";
+  $("submitReward").disabled = true;
+
+  emojiRain();
+});
+
+
+/* ==================================
+   EMOJI RAIN
+   ================================== */
+
+function emojiRain() {
+  const container = $("emojiRain");
+  const emojis = ["🎉", "✨", "💖", "⚖️", "🍫", "🍕", "🎁", "🌟", "😂"];
+
+  for (let i = 0; i < 45; i++) {
+    const el = document.createElement("span");
+    el.className = "rain-emoji";
+
+    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+    el.style.left = Math.random() * 100 + "%";
+    el.style.fontSize = (18 + Math.random() * 22) + "px";
+    el.style.animationDuration = (3 + Math.random() * 4) + "s";
+    el.style.animationDelay = Math.random() * 1.5 + "s";
+
+    container.appendChild(el);
+
+    setTimeout(() => el.remove(), 8000);
+  }
+}
+</script>
+
+</body>
+</html>
+
